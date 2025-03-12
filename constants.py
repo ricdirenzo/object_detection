@@ -2,7 +2,6 @@ import os
 
 # constants
 URL = 'https://api.pexels.com/v1/search'
-KEY = 'WFCnJNy9ZaxpXf1rEHjrwGU1zkf3IMDMLR0zeAPFKOUMTjzKnykreBK8'
 NUM = 20
 CLASS = 'surgery equipment'
 

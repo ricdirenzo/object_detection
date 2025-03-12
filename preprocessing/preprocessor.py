@@ -1,6 +1,12 @@
+import os
+from dotenv import load_dotenv
 import requests
-from constants import URL, KEY, CLASS
+from constants import URL, CLASS
 
+load_dotenv()
+
+# secrets
+KEY = os.getenv("KEY")
 
 def get_image_urls(num: int) -> list:
     try:
