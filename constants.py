@@ -1,18 +1,26 @@
 import os
 
-# constants
+# endpoint of the pexels api
 URL = 'https://api.pexels.com/v1/search'
 NUM = 20
 CLASS = 'surgery equipment'
 
+# phases and directories
 BASE_DIR = 'dataset'
-TRAIN_DIR = os.path.join(BASE_DIR, 'train')
-VAL_DIR = os.path.join(BASE_DIR, 'val')
 
-# sottocartelle per immagini e annotazioni
-TRAIN_IMAGES_DIR = os.path.join(TRAIN_DIR, 'images')
-TRAIN_LABELS_DIR = os.path.join(TRAIN_DIR, 'labels')
-VAL_IMAGES_DIR = os.path.join(VAL_DIR, 'images')
-VAL_LABELS_DIR = os.path.join(VAL_DIR, 'labels')
+TRAINING = 'training'
+VALIDATION = 'validation'
+RESULTS = 'results'
+TRAINING_DIR = os.path.join(BASE_DIR, TRAINING)
+VALIDATION_DIR = os.path.join(BASE_DIR, VALIDATION)
+RESULTS_DIR = os.path.join(BASE_DIR, RESULTS)
+
+TRAINING_IMAGES_DIR = os.path.join(TRAINING_DIR, 'images')
+TRAINING_LABELS_DIR = os.path.join(TRAINING_DIR, 'labels')
+VALIDATION_IMAGES_DIR = os.path.join(VALIDATION_DIR, 'images')
+VALIDATION_LABELS_DIR = os.path.join(VALIDATION_DIR, 'labels')
 
 CLASS_ID = 0
+
+# model version
+MODEL_VERSION = 'yolo11x.pt'
