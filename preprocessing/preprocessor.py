@@ -6,9 +6,11 @@ import cv2
 
 from dotenv import load_dotenv
 from constants import (URL, CLASS, CLASS_ID,
-                       TRAINING, VALIDATION,
+                       TRAINING, VALIDATION, TESTING,
                        TRAINING_IMAGES_DIR, TRAINING_LABELS_DIR,
-                       VALIDATION_IMAGES_DIR, VALIDATION_LABELS_DIR, BASE_DIR, RESULTS_DIR)
+                       VALIDATION_IMAGES_DIR, VALIDATION_LABELS_DIR,
+                       TESTING_IMAGES_DIR, TESTING_LABELS_DIR,
+                       BASE_DIR, RESULTS_DIR)
 
 load_dotenv()
 
@@ -66,6 +68,8 @@ def create_dir():
     os.makedirs(TRAINING_LABELS_DIR, exist_ok=True)
     os.makedirs(VALIDATION_IMAGES_DIR, exist_ok=True)
     os.makedirs(VALIDATION_LABELS_DIR, exist_ok=True)
+    os.makedirs(TESTING_IMAGES_DIR, exist_ok=True)
+    os.makedirs(TESTING_LABELS_DIR, exist_ok=True)
     os.makedirs(RESULTS_DIR, exist_ok=True)
 
 
@@ -74,12 +78,14 @@ def save_data(image_urls: list):
 
     random.shuffle(image_urls)
 
-    training_perc = int(0.8 * len(image_urls))
+    training_perc = int(0.7 * len(image_urls))
+    validation_perc = len(image_urls) - int(0.15 * len(image_urls))
 
     create_dir()
 
     training_image_paths = []
     validation_image_paths = []
+    testing_image_path = []
 
     for i, url in enumerate(image_urls):
         extension = url.split('.')[-1]
@@ -87,10 +93,14 @@ def save_data(image_urls: list):
             images_dir = TRAINING_IMAGES_DIR
             labels_dir = TRAINING_LABELS_DIR
             training_image_paths.append(os.path.join(images_dir, f'image_{i+1}.{extension}'))
-        else:
+        elif training_perc <= i < validation_perc:
             images_dir = VALIDATION_IMAGES_DIR
             labels_dir = VALIDATION_LABELS_DIR
-            validation_image_paths.append((os.path.join(images_dir, f'image_{i+1}.{extension}')))
+            validation_image_paths.append(os.path.join(images_dir, f'image_{i+1}.{extension}'))
+        else:
+            images_dir = TESTING_IMAGES_DIR
+            labels_dir = TESTING_LABELS_DIR
+            testing_image_path.append((os.path.join(images_dir, f'image_{i+1}.{extension}')))
 
         image_name = os.path.join(images_dir, f'image_{i+1}.jpeg')
         download_images(url=url, download_dir=image_name)
@@ -99,6 +109,7 @@ def save_data(image_urls: list):
 
         write_paths(paths=training_image_paths, file=TRAINING)
         write_paths(paths=validation_image_paths, file=VALIDATION)
+        write_paths(paths=testing_image_path, file=TESTING)
 
 
 def write_paths(paths: str, file: str):
