@@ -3,3 +3,4 @@ envtest
 dataset
 .env
 .idea
+yolo11x.pt
