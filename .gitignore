@@ -1,6 +1,8 @@
 __pycache__
-envtest
-dataset
 .env
 .idea
+.gitignore
+.gitattributes
+envtest
+dataset
 yolo11x.pt
